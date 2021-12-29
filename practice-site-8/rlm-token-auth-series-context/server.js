@@ -15,8 +15,8 @@ app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, "client", "build")))//newly added for heroku
 //connect to mongodb
 mongoose.connect(
-  // 'mongodb://localhost:27017/user-authentication',
-  process.env.MONGODB_URI,//newly added for heroku
+  'mongodb://localhost:27017/user-authentication',
+  //'process.env.MONGODB_URI',//newly added for heroku
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -25,6 +25,7 @@ mongoose.connect(
   },
   () => console.log('Connected to the DB')
 )
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });//newly added for heroku
 // '/auth' is the end point used for login and signup
 // /signup or /login can be attached to /auth to send data
 app.use('/auth', require('./routes/authRouter.js'))

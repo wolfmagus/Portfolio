@@ -14,8 +14,8 @@ app.use(morgan('dev'))
 app.use(express.static(path.join(__dirname, "client", "build")))//newly added for heroku
 
 mongoose.connect(
-  //'mongodb://localhost:27017/user-authentication',
-  process.env.MONGODB_URI,//newly added for heroku
+  'mongodb://localhost:27017/user-authentication',
+  //process.env.MONGODB_URI,//newly added for heroku
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -24,6 +24,7 @@ mongoose.connect(
   },
   () => console.log('Connected to the DB')
 )
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });//newly added for heroku
 //line 25: v1/restaurant(s)
 app.use('/auth', require('./routes/authRouter.js'))
 // app.use('/api', expressJwt({secret: process.env.SECRET, algorithms: ['HS256']}))
